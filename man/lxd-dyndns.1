@@ -1,0 +1,49 @@
+.\" Copyright (c) 2023 Aisha Tammy <aisha@bsd.ac>
+.\"
+.\" Permission to use, copy, modify, and distribute this software for any
+.\" purpose with or without fee is hereby granted, provided that the above
+.\" copyright notice and this permission notice appear in all copies.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd $Mdocdate: April 30 2021 $
+.Dt LXD-DYNDNS 1
+.Os
+.Sh NAME
+.Nm lxd-dyndns
+.Nd LXD dynamic DNS client
+.Sh SYNOPSIS
+.Nm lxd-dyndns
+.Op Fl d Ar debug_level
+.Op Fl f Ar file
+.Op Fl n
+.Sh DESCRIPTION
+.Nm
+monitors the LXD API endpoint for container and VM changes and performs DDNS
+updates to keep DNS records up to date.
+.Pp
+The options are as follows:
+.Pp
+.Bl -tag -width Ds -compact
+.It Fl d Ar debug_level
+.Pp
+Set the debug level of output.
+.It Fl f Ar file
+.Pp
+Specify an alternative configuration file.
+The default is
+.Pa /etc/lxd-dyndns.conf .
+.Pp
+.It Fl n
+.Pp
+Configtest mode.
+Only check if the configuration file is valid.
+.El
+.Sh SEE ALSO
+.Xr lxd-dyndns.conf 5

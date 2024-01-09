@@ -1,4 +1,4 @@
-.\" Copyright (c) 2023 Aisha Tammy <aisha@bsd.ac>
+.\" Copyright (c) 2023-2024 Aisha Tammy <aisha@bsd.ac>
 .\"
 .\" Permission to use, copy, modify, and distribute this software for any
 .\" purpose with or without fee is hereby granted, provided that the above
@@ -12,16 +12,122 @@
 .\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 .\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: April 30 2021 $
+.Dd $Mdocdate: January 9 2024 $
 .Dt LXD-DYNDNS.CONF 5
 .Os
 .Sh NAME
 .Nm lxd-dyndns.conf
-.Nd lxd-dyndns configuration file
+.Nd Configuration file for
+.Xr lxd-dyndns 1
 .Sh DESCRIPTION
 .Nm
 is the configuration file for
-.Xr lxd-dyndns 1 .
+.Xr lxd-dyndns 1 ,
+which is read from
+.Pa /etc/lxd-dyndns.conf
+by default.
 .Pp
-The configuration file follows the toml format, divided into two top level
-categories, lxd-credentials and projects.
+The configuration file follows the
+.Cm toml
+format, divided into two categories, top level options and per project options.
+Both categories support the same set of options, and per project options can
+override the top level options.
+.Pp
+Currently the following options are supported:
+.Pp
+.Bl -tag -width Ds -compact
+.It cache_dir
+.Pp
+Path to the directory used for storing the program cache.
+The default value is
+.Pa /var/lib/lxd-dyndns .
+.Pp
+.It dns_key_name
+.Pp
+TSIG key ID used for dynamic DNS queries to the nameserver.
+.Pp
+.It dns_key_secret
+.Pp
+TSIG key secret used for dynnamic DNS queries to the nameserver.
+.Pp
+.It dns_port
+.Pp
+Port number that the DNS server is listening on.
+The default is
+.Ar 53 .
+.Pp
+.It dns_server
+.Pp
+IP address or FQDN of the DNS server to use for managing records.
+The default is
+.Ar 127.0.0.1 .
+.Pp
+.It dns_transport
+.Pp
+Protocol to use for connecting to the nameserver.
+Choices are
+.Ar TCP
+or
+.Ar UDP .
+The default is
+.Ar UDP .
+.Pp
+.It dns_zone
+.Pp
+DNS zone under which to create the instance records.
+.Pp
+.It ipv4_prefixes
+.Pp
+A list of valid IPv4 prefixes, that will be used to filter IPs on instances and
+will be added to the DNS records.
+.Pp
+.It ipv6_prefixes
+.Pp
+A list of valid IPv6 prefixes, that will be used to filter IPs on instances and
+will be added to the DNS records.
+.Pp
+.It lxd_server
+.Pp
+API endpoint for the LXD server.
+.Pp
+.It lxd_client_cert
+.Pp
+Public certificate used for authentication to the API endpoint by the client.
+.Pp
+.It lxd_client_key
+.Pp
+Private certificate used for authentication to the API endpoint by the client.
+.Pp
+.It lxd_verify
+.Pp
+Boolean to control if the client should verify the API endpoint's certificate.
+The default is
+.Ar true .
+.Pp
+.It refresh_interval
+.Pp
+Time delay, in seconds, between refreshing data for a project.
+The default is
+.Ar 30 .
+.El
+.Sh EXAMPLES
+.Bd -literal -offset width
+cache_dir = "/var/lib/lxd-dyndns"
+
+[projects.k8s]
+dns_server = "192.168.2.1"
+dns_port = 8053
+dns_transport = "TCP"
+dns_key_name = "knot_lxd"
+dns_key_secret = "Zj7NdR9/6DJonRuTt/++QgMyvSlD4Ndv+i5SvGtGY3Q="
+dns_zone = "lxd.domain.tld."
+
+lxd_server = "https://lxd-leader.domain.tld:8443"
+lxd_verify = false
+lxd_client_cert = "/etc/ssl/lxd-dyndns/client.crt"
+lxd_client_key = "/etc/ssl/lxd-dyndns/client.key"
+
+ipv6_prefixes = [ "dead:beef::0/96" ]
+.Ed
+.Sh SEE ALSO
+.Xr lxd-dyndns 1

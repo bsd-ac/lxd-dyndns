@@ -1,4 +1,4 @@
-.\" Copyright (c) 2023 Aisha Tammy <aisha@bsd.ac>
+.\" Copyright (c) 2023-2024 Aisha Tammy <aisha@bsd.ac>
 .\"
 .\" Permission to use, copy, modify, and distribute this software for any
 .\" purpose with or without fee is hereby granted, provided that the above
@@ -12,7 +12,7 @@
 .\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 .\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: April 30 2021 $
+.Dd $Mdocdate: January 9 2024 $
 .Dt LXD-DYNDNS 1
 .Os
 .Sh NAME
@@ -22,6 +22,7 @@
 .Nm lxd-dyndns
 .Op Fl d Ar debug_level
 .Op Fl f Ar file
+.Op Fl h , -help
 .Op Fl n
 .Sh DESCRIPTION
 .Nm
@@ -33,12 +34,23 @@ The options are as follows:
 .Bl -tag -width Ds -compact
 .It Fl d Ar debug_level
 .Pp
-Set the debug level of output.
+Set the debug level of output .
+Valid options are
+.Ar debug ,
+.Ar info ,
+.Ar warn ,
+.Ar error
+or
+.Ar critical .
 .It Fl f Ar file
 .Pp
 Specify an alternative configuration file.
 The default is
 .Pa /etc/lxd-dyndns.conf .
+.Pp
+.It Fl h , -help
+.Pp
+Show the help message and exit.
 .Pp
 .It Fl n
 .Pp

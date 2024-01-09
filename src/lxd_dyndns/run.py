@@ -15,7 +15,11 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 parser = argparse.ArgumentParser(description="LXD dynamic DNS client")
 parser.add_argument(
-    "-f", metavar="file", type=str, help="config file", default="/etc/lxd-dyndns.conf"
+    "-f",
+    metavar="file",
+    type=str,
+    help="config file, see `man 5 lxd-dyndns.conf` for details",
+    default="/etc/lxd-dyndns.conf",
 )
 parser.add_argument("-n", action="store_true", help="configtest mode")
 parser.add_argument(

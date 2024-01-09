@@ -40,4 +40,6 @@ An example config file is shown below:
     lxd_client_key = "/etc/ssl/lxd-dyndns/client.key"
 
     ipv6_prefixes = [ "dead:beef::0/96" ]
+    ipv4_prefixes = [ "255.255.255.255/32" ]  # to disable IPv4 records
 
+    refresh_interval = 600  # 10 minutes

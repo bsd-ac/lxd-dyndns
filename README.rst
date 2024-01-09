@@ -19,7 +19,9 @@ Usage
 
     $ lxd-dyndns -f /etc/lxd-dyndns.conf -d info
 
+
 .. code:: toml
+
     cache_dir = "/var/lib/lxd-dyndns"
 
     [projects.k8s]

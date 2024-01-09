@@ -20,6 +20,8 @@ Usage
     $ lxd-dyndns -f /etc/lxd-dyndns.conf -d info
 
 
+An example config file is shown below:
+
 .. code:: toml
 
     cache_dir = "/var/lib/lxd-dyndns"

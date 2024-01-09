@@ -1,3 +1,7 @@
+# don't commit config files by mistake
+*.conf
+*.toml
+
 # don't care about openapi
 openapi/
 

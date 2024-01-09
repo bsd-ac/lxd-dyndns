@@ -1,0 +1,31 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  publish-pypi:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/lxd-dyndns
+    permissions:
+      id-token: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          cache: pip
+      - name: Install dependencies
+        run: |
+          pip install --upgrade build twine
+      - name: Build distribution
+        run: |
+          python -m build
+      - name: Upload to PyPi
+        uses: pypa/gh-action-pypi-publish@release/v1
